@@ -704,20 +704,22 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     decrementYear() {
-        this.currentYear--;
-        
-        if (this.yearNavigator && this.currentYear < this.yearOptions[0]) {
-            let difference = this.yearOptions[this.yearOptions.length - 1] - this.yearOptions[0];
-            this.populateYearOptions(this.yearOptions[0] - difference, this.yearOptions[this.yearOptions.length - 1] - difference);
+        if (Array.isArray(this.yearOptions) && this.yearOptions.length) {
+            if (this.yearNavigator && this.currentYear > this.yearOptions[0]) {
+                this.currentYear--;
+            }
+        } else {
+            this.currentYear--;
         }
     }
 
     incrementYear() {
-        this.currentYear++;
-        
-        if (this.yearNavigator && this.currentYear > this.yearOptions[this.yearOptions.length - 1]) {
-            let difference = this.yearOptions[this.yearOptions.length - 1] - this.yearOptions[0];
-            this.populateYearOptions(this.yearOptions[0] + difference, this.yearOptions[this.yearOptions.length - 1] + difference);
+        if (Array.isArray(this.yearOptions) && this.yearOptions.length) {
+            if (this.yearNavigator && this.currentYear < this.yearOptions[this.yearOptions.length - 1]) {
+                this.currentYear++;
+            }
+        } else {
+            this.currentYear++;
         }
     }
     
